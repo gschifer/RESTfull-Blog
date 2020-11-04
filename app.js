@@ -1,5 +1,5 @@
 var	bodyParser = require("body-parser"),
-	//esse method override eh pra fakear o put ali dai sla tem q usa pra essa parada
+
 methodOverride   = require("method-override"),
 mongoose         = require("mongoose"),
 express          = require("express"),
@@ -14,8 +14,6 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
-// vai poder ter acesso a pasta public e usar o app.css criado na stylesheets
-
 
 
 //MONGOOSE/MODEL CONFIG
@@ -41,7 +39,7 @@ app.get("/", function(req, res){
 
 //INDEX ROUTE
 app.get("/blogs", function(req, res){
-// 	se der brete so trocar o blogContent pra blogs e em baixo tb o blog pra blogs
+// 	
 	Blog.find({}, function(err, blogContent){
 		if(err){
 			console.log(err);
@@ -59,7 +57,7 @@ app.get("/blogs/new", function(req, res){
 //CREATE ROUTE
 app.post("/blogs", function(req, res){
 	req.body.blog.body = req.sanitize(req.body.blog.body);
-	//esse req.body.blog vai puxar todos eles de uma vez n precisa dai fazer req.body.image, title, body q nem o outro
+
 	Blog.create(req.body.blog, function(err, newBlog){
 		if(err){
 			res.render("new");
